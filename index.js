@@ -47,3 +47,17 @@ function getAllDateFormats(date) {
 
     return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
 }
+
+function checkPalindromeForAllDateFormats(date) {
+    var listOfPalindromes = getAllDateFormats(date);
+
+    flag = false;
+    
+    for (var i = 0; i < listOfPalindromes.length; i++) {
+        if (checkPalindrome(listOfPalindromes[i])) {
+            flag = true;
+            break;
+        }
+    }
+    return flag;
+}
