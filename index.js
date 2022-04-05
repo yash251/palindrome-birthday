@@ -34,3 +34,16 @@ function dateToString(date) {
 
     return dateStr;
 }
+
+function getAllDateFormats(date) {
+    var dataStr = dateToString(date);
+
+    var ddmmyyyy = dataStr.day + dataStr.month + dataStr.year;
+    var mmddyyyy = dataStr.month + dataStr.day + dataStr.year;
+    var yyyymmdd = dataStr.year + dataStr.month + dataStr.day;
+    var ddmmyy = dataStr.day + dataStr.month + dataStr.year.slice(-2);
+    var mmddyy = dataStr.month + dataStr.day + dataStr.year.slice(-2);
+    var yymmdd = dataStr.year.slice(-2) + dataStr.month + dataStr.day;
+
+    return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
+}
