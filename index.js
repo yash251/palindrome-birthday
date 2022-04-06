@@ -113,18 +113,18 @@ function getNextDate(date) {
 }
 
 function getNextPalindromeDate(date) {
-    var ctr = 0;
+    var ctrNext = 0;
     var nextDate = getNextDate(date);
 
     while(1) { // infinite loop
-        ctr++;
+        ctrNext++;
         var isPalindrome = checkPalindromeForAllDateFormats(nextDate);
         if (isPalindrome) {
             break;
         }
         nextDate = getNextDate(nextDate);
     }
-    return [ctr, nextDate];
+    return [ctrNext, nextDate];
 }
 
 function getPreviousDate(date) {
@@ -155,4 +155,19 @@ function getPreviousDate(date) {
 
     }
 
+}
+
+function getPreviousPalindromeDate(date) {
+    var ctrPrev = 0;
+    var prevDate = getPreviousDate(date);
+
+    while(1) {
+        ctrPrev++;
+        var isPalindrome = checkPalindromeForAllDateFormats(prevDate);
+        if (isPalindrome) {
+            break;
+        }
+        prevDate = getPreviousDate(prevDate);
+    }
+    return [ctrPrev, prevDate];
 }
