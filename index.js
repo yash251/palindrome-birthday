@@ -205,10 +205,13 @@ function clickHandler() {
             result.innerText = "Yayy! Your birthday is a palindrome! 🥳";
         }
         else {
-            var [ctrNext, nextDate] = getNextPalindromeDate(date);
-            result.innerText = `The next palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}. You missed it by ${ctrNext} days! 😔`
+            var [ctr, nearestPalindromeDate] = getNearestPalindrome(date);
+            result.innerText = `Uh! Oh, your birthday is not a palindrome. The nearest palindrome date is ${nearestPalindromeDate.day}-${nearestPalindromeDate.month}-${nearestPalindromeDate.year}. You missed it by ${ctr} days! 😔`
         }
 
+    }
+    else {
+        result.innerText = "Please enter a date";
     }
 }
 
