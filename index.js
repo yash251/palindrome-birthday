@@ -1,218 +1,212 @@
-function reverseStr(str) {
+function stringReverse(str) {
     return str.split("").reverse().join("");
-}
-
-function checkPalindrome(str) {
+  }
+  
+  function checkPalindrome(str) {
     if (str === stringReverse(str)) {
       return true;
     }
     return false;
-}
-
-function dateToString(date) {
+  }
+  
+  function dateToString(date) {
     var dateStr = {
-        day : "",
-        month : "",
-        year : "",
+      day: "",
+      month: "",
+      year: "",
     };
-
+  
     if (date.day < 10) {
-        dateStr.day = "0" + date.day;
+      dateStr.day = "0" + date.day;
+    } else {
+      dateStr.day = date.day.toString();
     }
-    else {
-        dateStr.day = date.day.toString();
-    }
-
+  
     if (date.month < 10) {
-        dateStr.month = "0" + date.month;
+      dateStr.month = "0" + date.month;
+    } else {
+      dateStr.month = date.month.toString();
     }
-    else {
-        dateStr.month = date.month.toString();
-    }
-
+  
     dateStr.year = date.year.toString();
-
+  
     return dateStr;
-}
-
-function getAllDateFormats(date) {
-    var dataStr = dateToString(date);
-
-    var ddmmyyyy = dataStr.day + dataStr.month + dataStr.year;
-    var mmddyyyy = dataStr.month + dataStr.day + dataStr.year;
-    var yyyymmdd = dataStr.year + dataStr.month + dataStr.day;
-    var ddmmyy = dataStr.day + dataStr.month + dataStr.year.slice(-2);
-    var mmddyy = dataStr.month + dataStr.day + dataStr.year.slice(-2);
-    var yymmdd = dataStr.year.slice(-2) + dataStr.month + dataStr.day;
-
+  }
+  
+  function getAllDateFormats(date) {
+    var dateStr = dateToString(date);
+  
+    var ddmmyyyy = dateStr.day + dateStr.month + dateStr.year;
+    var mmddyyyy = dateStr.month + dateStr.day + dateStr.year;
+    var yyyymmdd = dateStr.year + dateStr.month + dateStr.day;
+    var ddmmyy = dateStr.day + dateStr.month + dateStr.year.slice(-2);
+    var mmddyy = dateStr.month + dateStr.day + dateStr.year.slice(-2);
+    var yymmdd = dateStr.year.slice(-2) + dateStr.month + dateStr.day;
+  
     return [ddmmyyyy, mmddyyyy, yyyymmdd, ddmmyy, mmddyy, yymmdd];
-}
-
-function checkPalindromeForAllDateFormats(date) {
-    var listOfDateFormats = getAllDateFormats(date);
-
-    flag = false;
-    
-    for (var i = 0; i < listOfDateFormats.length; i++) {
-        if (checkPalindrome(listOfDateFormats[i])) {
-            flag = true;
-            break;
-        }
-    }
-    return flag;
-}
-
-function isLeapYear(year) {
-    if (year % 400) {
+  }
+  
+  function checkPalindromeForAllDateFormats(date) {
+    var dateArr = getAllDateFormats(date);
+    var isPalindrome = false;
+  
+    for (var i = 0; i < dateArr.length; i++) {
+      if (checkPalindrome(dateArr[i])) {
         return true;
-    }
-    if (year % 100 === 0) {
-        return false;
-    }
-    if (year % 4 === 0) {
-        return true;
+      }
     }
     return false;
-}
-
-function getNextDate(date) {
-    var day = date.day + 1; // increment the day
+  }
+  
+  function isLeapYear(year) {
+    if (year % 400 === 0) {
+      return true;
+    }
+    if (year % 100 === 0) {
+      return false;
+    }
+    if (year % 4 === 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
+  function getNextDate(date) {
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    var day = date.day + 1;
     var month = date.month;
     var year = date.year;
-
-    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-    // check for february
+  
+    // Handle february, leap and non leap years
     if (month === 2) {
-        if(isLeapYear(year)) {
-            if (day > 29) {
-                day = 1;
-                month++;
-            }
+      if (isLeapYear(year)) {
+        if (day > 29) {
+          day = 1;
+          month++;
         }
-        else {
-            if (day > 28) {
-                day = 1;
-                month++;
-            }
+      } else {
+        if (day > 28) {
+          day = 1;
+          month++;
         }
-    }
-    else {
-        // check if day exceeds the max days in month
-        if (day > daysInMonth[month - 1]) {
-            day = 1;
-            month++;
-        }
-    }
-
-    if (month > 12) {
+      }
+    } else {
+      if (day > daysInMonth[month - 1]) {
+        day = 1;
+        month++;
+      }
+  
+      // Handle 31 December to 1 January transition
+      if (month > 12) {
         month = 1;
         year++;
+      }
     }
-
-}
-
-function getNextPalindromeDate(date) {
-    var ctrNext = 0;
+    return {
+      day: day,
+      month: month,
+      year: year,
+    };
+  }
+  
+  function getNextPalindromeDate(date) {
+    var counterNext = 0;
     var nextDate = getNextDate(date);
-
-    while(1) { // infinite loop
-        ctrNext++;
-        var isPalindrome = checkPalindromeForAllDateFormats(nextDate);
-        if (isPalindrome) {
-            break;
-        }
-        nextDate = getNextDate(nextDate);
+  
+    while (1) {
+      counterNext++;
+      var isPalindromeDate = checkPalindromeForAllDateFormats(nextDate);
+      if (isPalindromeDate) {
+        break;
+      }
+      nextDate = getNextDate(nextDate);
     }
-    return [ctrNext, nextDate];
-}
-
-function getPreviousDate(date) {
+    return [counterNext, nextDate];
+  }
+  
+  function getPreviousDate(date) {
+    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
     var day = date.day - 1;
     var month = date.month;
     var year = date.year;
-
-    var daysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-    if (day === 0) {
-        month--;
-        if (month === 0) {
-            month = 12;
-            day = 31;
-            year--;
+  
+    if (day < 1) {
+      month--;
+      day = daysInMonth[month - 1];
+      if (month < 1) {
+        day = 31;
+        month = 12;
+        year--;
+      }
+      if (month === 2) {
+        if (isLeapYear(year)) {
+          day = 29;
+        } else {
+          day = 28;
         }
-        else if (month === 2) {
-            if (isLeapYear(year)) {
-                day = 29;
-            }
-            else {
-                day = 28;
-            }
-        }
-        else {
-            day = daysInMonth[month - 1];
-        }
-
+      }
     }
-
-}
-
-function getPreviousPalindromeDate(date) {
-    var ctrPrev = 0;
-    var prevDate = getPreviousDate(date);
-
-    while(1) {
-        ctrPrev++;
-        var isPalindrome = checkPalindromeForAllDateFormats(prevDate);
-        if (isPalindrome) {
-            break;
-        }
-        prevDate = getPreviousDate(prevDate);
+    return {
+      day: day,
+      month: month,
+      year: year,
+    };
+  }
+  
+  function getPreviousPalindromeDate(date) {
+    var counterPrev = 0;
+    var previousDate = getPreviousDate(date);
+  
+    while (1) {
+      counterPrev++;
+      var isPalindromeDate = checkPalindromeForAllDateFormats(previousDate);
+      if (isPalindromeDate) {
+        break;
+      }
+      previousDate = getPreviousDate(previousDate);
     }
-    return [ctrPrev, prevDate];
-}
-
-function getNearestPalindrome(date) {
-    var [ctrPrev, prevDate] = getPreviousPalindromeDate(date);
-    var [ctrNext, nextDate] = getNextPalindromeDate(date);
-
-    if (ctrPrev < ctrNext) {
-        return [ctrPrev, prevDate];
+    return [counterPrev, previousDate];
+  }
+  
+  function getNearestPalindrome(date) {
+    var [counterPrev, previousDate] = getPreviousPalindromeDate(date);
+    var [counterNext, nextDate] = getNextPalindromeDate(date);
+  
+    if (counterPrev < counterNext) {
+      return [counterPrev, previousDate];
+    } else {
+      return [counterNext, nextDate];
     }
-    else {
-        return [ctrNext, nextDate];
+  }
+  
+  const birthDay = document.querySelector("#bday-input");
+  const check = document.querySelector("#check-btn");
+  const output = document.querySelector("#result");
+  
+  function clickHandler(e) {
+    var bdayStr = birthDay.value;
+  
+    if (bdayStr !== "") {
+      var dateList = bdayStr.split("-");
+      var date = {
+        day: Number(dateList[2]),
+        month: Number(dateList[1]),
+        year: Number(dateList[0]),
+      };
+      // console.table(date);
+  
+      var isPalindrome = checkPalindromeForAllDateFormats(date);
+  
+      if (isPalindrome) {
+        output.innerText = "Yayy! Your birthday is a palindrome! 🥳";
+      } else {
+        var [counter, palindromeDate] = getNearestPalindrome(date);
+        output.innerText = `Uh Oh! Your birthday is not a palindrome. The nearest palindrome date is ${palindromeDate.day}-${palindromeDate.month}-${palindromeDate.year}. You missed by ${counter} days. 😔`;
+      }
+    } else {
+      output.innerText = "Please enter a date";
     }
-}
-
-var dateInput = document.querySelector("#bday-input");
-var checkBtn = document.querySelector("#check-btn");
-var result = document.querySelector("#result")
-
-function clickHandler() {
-    var bdayStr = dateInput.value;
-
-    if (bdayStr !== "") { //taking care of empty str
-        var listOfDate = bday.split("-"); //returns array
-        var date = {
-            day : Number(listOfDate[2]),
-            month : Number(listOfDate[1]),
-            year : Number(listOfDate[0])
-        };
-
-        var isPalindrome = checkPalindromeForAllDateFormats(date);
-
-        if (isPalindrome) {
-            result.innerText = "Yayy! Your birthday is a palindrome! 🥳";
-        }
-        else {
-            var [ctr, nearestPalindromeDate] = getNearestPalindrome(date);
-            result.innerText = `Uh! Oh, your birthday is not a palindrome. The nearest palindrome date is ${nearestPalindromeDate.day}-${nearestPalindromeDate.month}-${nearestPalindromeDate.year}. You missed it by ${ctr} days! 😔`
-        }
-
-    }
-    else {
-        result.innerText = "Please enter a date";
-    }
-}
-
-checkBtn.addEventListener('click', clickHandler);
+  }
+  
+  check.addEventListener("click", clickHandler);
