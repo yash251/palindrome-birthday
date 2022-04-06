@@ -171,3 +171,35 @@ function getPreviousPalindromeDate(date) {
     }
     return [ctrPrev, prevDate];
 }
+
+
+
+var dateInput = document.querySelector("#bday-input");
+var checkBtn = document.querySelector("#check-btn");
+var result = document.querySelector("#result")
+
+function clickHandler() {
+    var bdayStr = dateInput.value;
+
+    if (bdayStr !== "") { //taking care of empty str
+        var listOfDate = bday.split("-"); //returns array
+        var date = {
+            day : Number(listOfDate[2]),
+            month : Number(listOfDate[1]),
+            year : Number(listOfDate[0])
+        };
+
+        var isPalindrome = checkPalindromeForAllDateFormats(date);
+
+        if (isPalindrome) {
+            result.innerText = "Yayy! Your birthday is a palindrome! 🥳";
+        }
+        else {
+            var [ctrNext, nextDate] = getNextPalindromeDate(date);
+            result.innerText = `The next palindrome date is ${nextDate.day}-${nextDate.month}-${nextDate.year}. You missed it by ${ctrNext} days! 😔`
+        }
+
+    }
+}
+
+checkBtn.addEventListener('click', clickHandler);
