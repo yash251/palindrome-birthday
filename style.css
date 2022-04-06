@@ -1,0 +1,63 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body {
+    background-color: antiquewhite;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
+    height: 100vh;
+    text-align: center;
+}
+
+h1,h3,label {
+    padding: 1rem;
+}
+  
+h1 {
+    font-size: 2.8rem;
+    padding-top: 1.75rem;
+    color: rgb(139, 17, 17);
+}
+  
+h3 {
+    font-size: 1.4rem;
+    width: 75%;
+    margin: 0 auto;
+    font-weight: 100;
+}
+  
+label {
+    font-size: 1.4rem;
+}
+  
+#check-btn {
+    font-size: 1rem;
+    display: block;
+    margin: 1rem auto;
+    padding: 0.7em 1.2em;
+    border-radius: 2rem;
+    width: 40%;
+    border: 2px solid rgb(106, 200, 243);
+    box-shadow: 2px 10px 8px rgb(253, 40, 93);
+}
+  
+#check-btn:active {
+    transform: translateY(5px);
+}
+  
+#bday-input {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border: 2px solid rgb(253, 40, 93);
+    border-radius: 2rem;
+    width: 40%;
+}
+  
+#result {
+    font-size: 1.5rem;
+    width: 75%;
+    margin: 0 auto;
+}
