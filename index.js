@@ -172,7 +172,17 @@ function getPreviousPalindromeDate(date) {
     return [ctrPrev, prevDate];
 }
 
+function getNearestPalindrome(date) {
+    var [ctrPrev, prevDate] = getPreviousPalindromeDate(date);
+    var [ctrNext, nextDate] = getNextPalindromeDate(date);
 
+    if (ctrPrev < ctrNext) {
+        return [ctrPrev, prevDate];
+    }
+    else {
+        return [ctrNext, nextDate];
+    }
+}
 
 var dateInput = document.querySelector("#bday-input");
 var checkBtn = document.querySelector("#check-btn");
