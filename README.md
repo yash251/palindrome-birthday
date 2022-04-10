@@ -1,6 +1,6 @@
 # Palindrome-Birthday
 Is your birthday a palindrome?
-Find out with this app.
+Find out with [this](https://yashjagtap-palindrome-birthday.netlify.app/) app.
 This app takes your date and looks for the following patterns.  
 1. DDMMYYYY
 2. MMDDYYYY 
